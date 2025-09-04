@@ -36,7 +36,7 @@ Here are descriptions of each column:
 
 ## Step 4:
 
-Modify [`submit_jobs.sh`](src/250825_submit_mega_panc_jobs.sh) to point to files and directories you want. 
+Modify [`submit_jobs.sh`](src/submit_jobs.sh) to point to files and directories you want. 
 
 **Note:** `input_csv.csv` path must be changed at the beginning AND end of the file.
 
@@ -48,7 +48,7 @@ Modify [`run_jobs.sh`](src/run_jobs.sh) to point to your conda environment (with
 
 To run the pipeline:
 
-`cd src/`
+`cd src`
 
 `bash submit_jobs.sh`
 
