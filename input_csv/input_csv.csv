@@ -1,0 +1,8 @@
+contrast_id,contrast_var,donor_col,control_grp,experimental_grp,subset_on1,subset_on2,subset1,subset2,covariates,correlate_vars,scale,file_pattern,assay
+ND_vs_T1D,DiabetesStatus,Donor,Non-diabetic,T1D,DiabetesStatus,NA,Non-diabetic_T1D,NA,Age_Sex_Project,DiabetesStatus_Age_Sex_BMI_Project_Dataset,TRUE,_perdonor.RNA.counts.tsv,RNA
+ND_vs_Pre-T2D,DiabetesStatus,Donor,Non-diabetic,Pre-T2D,DiabetesStatus,NA,Non-diabetic_Pre-T2D,NA,Age_Sex_Project,DiabetesStatus_Age_Sex_BMI_Project_Dataset,TRUE,_perdonor.RNA.counts.tsv,RNA
+NumberAB,NumberAB,Donor,NA,NA,NA,NA,NA,NA,Age_Sex_Project,DiabetesStatus_Age_Sex_BMI_Project_Dataset,TRUE,_perdonor.RNA.counts.tsv,RNA
+ND_GADsingle,GADsingle,Donor,FALSE,TRUE,DiabetesStatus,NA,Non-diabetic_Autoab+,NA,Age_Sex_Project,GADsingle_DiabetesStatus_Age_Sex_BMI_Project_Dataset,TRUE,_perdonor.RNA.counts.tsv,RNA
+Age,Age,Donor,NA,NA,NA,NA,NA,NA,DiabetesStatus_Sex_Project_BMI,Age_DiabetesStatus_Sex_Project_BMI,TRUE,_perdonor.RNA.counts.tsv,RNA
+Sex,Sex,Donor,Male,Female,NA,NA,NA,NA,DiabetesStatus_BMI_Project_Age,Sex_DiabetesStatus_Age_Project_BMI,TRUE,_perdonor.RNA.counts.tsv,RNA
+BMI,BMI,Donor,NA,NA,NA,NA,NA,NA,DiabetesStatus_Sex_Project_Age,BMI_DiabetesStatus_Sex_Project_BMI,TRUE,_perdonor.RNA.counts.tsv,RNA
