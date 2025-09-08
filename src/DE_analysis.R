@@ -55,7 +55,7 @@ print(deseq_formula)
 correlate_vars <- str_split(correlate_vars, pattern = "_") %>% unlist()
 
 # Setup additional variables
-max.k = 10 # Roughly 1/2 samples is ok
+max.k.global = 10 # Roughly 1/2 samples is ok
 
 #get RLE plot thresholds for RNA or ATAC
 if (assay == "RNA") {
@@ -66,7 +66,7 @@ if (assay == "ATAC") {
 }
 
 # Don't touch this one
-latent_vars <- paste0("W_", 1:max.k)
+latent_vars <- paste0("W_", 1:max.k.global)
 
 # Write here the covariants you want to test against the Ws and EXCLUDE from the final formula (Usually just disease)
 covariants <- contrast_var
@@ -277,7 +277,7 @@ for (i in og_celltypes) {
               }
 
               #now re-define max.k based on number of donors
-              max.k <- min(max.k, ncol(raw_counts_filter)-3)
+              max.k <- min(max.k.global, ncol(raw_counts_filter)-3)
               latent_vars <- paste0("W_", 1:max.k)
 
               counts_filtered <- as.matrix(raw_counts_filter)
