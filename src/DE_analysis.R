@@ -37,9 +37,6 @@ files <- list.files(indir, pattern = file_pattern, full.names = TRUE)
 og_celltypes <- list.files(indir, pattern = file_pattern, full.names = FALSE, recursive = FALSE) %>% str_split_i(file_pattern, 1)
 celltypes_fix <- gsub("_", "", og_celltypes)
 
-# print(meta$Sex)
-# print(meta["Sex"])
-# print("here is wtf is going on with subset_on1")
 
 #let's get list of n_cells per cell type
 meta[,celltypes_fix] <- sapply(meta[,celltypes_fix], as.numeric)
@@ -73,8 +70,6 @@ covariants <- contrast_var
 
 #get subsets out
 subset1 <- str_split(subset1, pattern = "_") %>% unlist()
-print("here is split subset1")
-print(subset1)
 subset2 <- str_split(subset2, pattern = "_") %>% unlist()
 
 #do RUVseq for T1D vs. non-diabetic
@@ -102,10 +97,8 @@ for (i in og_celltypes) {
     meta_cell <- meta_cell[colnames(raw_counts),]
 
     if (!is.na(subset_on1) & subset_on1 != "NA") { #changed from subset_on1 != "NA"
-      print("trying to subset1")
       meta_cell <- meta_cell[which(meta_cell[,subset_on1] %in% subset1),]
-      print("here's what's left of meta_cell")
-      print(head(meta_cell))
+
     }
 
     if (subset_on2 != "NA") {
@@ -198,10 +191,6 @@ for (i in og_celltypes) {
 
       meta_cell.use <- meta_cell.use[meta_cell.use[,donor_col] %in% unlist(keep_donors),]
 
-      print("here are the unique contrast levels")
-      print(unique(meta_cell.use[,contrast_var]))
-      print(meta_cell.use[,contrast_var])
-
 
       #then check if enough cells in donor
       
@@ -254,8 +243,6 @@ for (i in og_celltypes) {
                   }
                   # genes_to_keep <- intersect(ctrl_genes_to_keep, exp_genes_to_keep)
                   genes_to_keep <- unique(c(ctrl_genes_to_keep, exp_genes_to_keep))
-                  print("here are the first genes to keep")
-                  print(genes_to_keep[1:50])
 
                   raw_counts_filter <- raw_counts_subset[rownames(raw_counts_subset) %in% genes_to_keep,]
               } 
@@ -289,11 +276,6 @@ for (i in og_celltypes) {
               # Run DESeq2
               if (is.character(meta[,contrast_var])) {
                   meta_cell.use[,contrast_var] <- factor(meta_cell.use[,contrast_var], levels = c(control_grp, experimental_grp)) #first one will be used as reference
-
-                  # #lets get a filter to say there need to be 3 samples in each group
-                  # dots <- as.symbol(contrast_var)
-                  # count_samps <- meta_cell.use %>% group_by(.dots = dots) %>% summarize(n=n())
-                  # print(count_samps)
 
               }
 
@@ -508,7 +490,6 @@ for (i in og_celltypes) {
               ####==== Find Best K ====#### 
 
               df <- anova_res_all[order(anova_res_all$k_num),]
-              print(head(df))
 
               # Find local minima
               mins_idx <- which(df$f_statistic < lag(df$f_statistic) & df$f_statistic < lead(df$f_statistic))
@@ -527,8 +508,7 @@ for (i in og_celltypes) {
                 candidates <- data.frame(k = min_k,
                                         f = min_f,
                                         drop = drops) %>% filter(drop)
-                print("here is candidates")
-                print(head(candidates))
+
 
                 if (nrow(candidates) > 0) {
                   # If some meet the drop criterion, pick the one with smallest f
@@ -621,7 +601,6 @@ for (i in og_celltypes) {
               res <- na.omit(res[order(res$padj), ])
               res <- res %>% as.data.frame()
               res <- cbind(gene = rownames(res), res)
-              print(head(res))
 
               RUV_de_features <- nrow(res[res$pvalue < 0.05,])
               RUV_fdr_features <- nrow(res[res$padj < 0.05,])
